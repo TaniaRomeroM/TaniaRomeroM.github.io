@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "create-file-404": "cp dist/football-updates/index.html dist/football-updates/404.html"
   },
   "private": true,
   "dependencies": {

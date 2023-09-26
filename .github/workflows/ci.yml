@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+name: CI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build
+        run: |
+          npm install
+          npm run build
+          npm run create-file-404
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/football-updates
