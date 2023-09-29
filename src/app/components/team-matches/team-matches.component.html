@@ -1,0 +1,26 @@
+<table mat-table [dataSource] = "teamMatches" class = "mat-elevation-z8">
+  <ng-container mat-colum-logoHome matColumnDef = "logoHome">
+     <td mat-cell *matCellDef = "let element"><img [src]="element.logoHome"/></td>
+  </ng-container>
+  <ng-container mat-colum-nameHome matColumnDef = "nameHome">
+     <td mat-cell *matCellDef = "let element"> {{element.nameHome}} </td>
+  </ng-container>
+  <ng-container mat-colum-goalsHome matColumnDef = "goalsHome">
+     <td mat-cell *matCellDef = "let element"> {{element.goalsHome}} </td>
+  </ng-container>
+  <ng-container mat-colum-split matColumnDef = "split">
+    <td mat-cell *matCellDef = "let element"> - </td>
+  </ng-container>
+  <ng-container mat-colum-goalsAway matColumnDef = "goalsAway">
+   <td mat-cell *matCellDef = "let element"> {{element.goalsAway}} </td>
+  </ng-container>
+  <ng-container mat-colum-nameAway matColumnDef = "nameAway">
+    <td mat-cell *matCellDef = "let element"> {{element.nameAway}} </td>
+  </ng-container>
+  <ng-container mat-colum-logoAway matColumnDef = "logoAway">
+    <td mat-cell *matCellDef = "let element"><img [src]="element.logoAway"/></td>
+  </ng-container>
+  <tr mat-row *matRowDef = "let row; columns: displayedColumns;"></tr>
+</table>
+
+<button (click)="goBack()">Back</button>

@@ -1,0 +1,14 @@
+<div class="buttonToggle">
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle id="englandSelect" value="england" #england (click)="getFootballCountry(england.value)">England</mat-button-toggle>
+    <mat-button-toggle id="spainSelect" value="spain" #spain (click)="getFootballCountry(spain.value)">Spain</mat-button-toggle>
+    <mat-button-toggle id="germanySelect" value="germany" #germany (click)="getFootballCountry(germany.value)">Germany</mat-button-toggle>
+    <mat-button-toggle id="franceSelect" value="france" #france (click)="getFootballCountry(france.value)">France</mat-button-toggle>
+    <mat-button-toggle id="italySelect" value="italy" #italy (click)="getFootballCountry(italy.value)">Italy</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+<app-country-detail
+  *ngIf="active"
+  [dataSource]= "countryStandings"
+></app-country-detail>
