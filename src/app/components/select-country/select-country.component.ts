@@ -13,7 +13,7 @@ export class SelectCountryComponent implements OnInit {
   seasonD = new Date().getFullYear();
   season = this.seasonD.toString();
   idLeague = '';
-  active: boolean = false;
+  active: boolean = true;
 
   constructor(
     private footballUpdatesService: FootballUpdatesService,
