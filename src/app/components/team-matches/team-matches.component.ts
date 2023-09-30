@@ -4,6 +4,7 @@ import { FootballUpdatesService } from 'src/app/services/football-updates.servic
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { KEY_TEAMS_MATCHES } from 'src/app/constants/football-constants';
 
 @Component({
   selector: 'app-team-matches',
@@ -35,8 +36,43 @@ export class TeamMatchesComponent implements OnInit {
     this.getTeamMatches(this.idLeague, this.season, this.idTeam);
   }
 
-
   getTeamMatches(idLeague: string, season: string, idTeam: string) {
+    this.keyTeam = KEY_TEAMS_MATCHES + idLeague;
+
+    if(this.sessionStorageService.keyExists(this.keyTeam)) {
+      let data = this.sessionStorageService.getStorageCountry(this.keyTeam);
+      this.checkTeam(data, idTeam);
+
+    } else {
+      this.footballUpdatesService.getTeamsMatches(idLeague, season).subscribe(
+        data => {
+          data = data.response;
+          this.sessionStorageService.saveStorageCountry(this.keyTeam, data);
+          this.checkTeam(data, idTeam);
+      });
+    }
+  }
+
+  checkTeam(data: any[], idTeam: string) {
+    let standings: any[] = [];
+
+    data.forEach((elem: any) => {
+      if(elem.teams.home.id == idTeam || elem.teams.away.id == idTeam) {
+        standings.push({
+          idLeague: this.idLeague,
+          logoHome: elem.teams.home.logo,
+          nameHome: elem.teams.home.name,
+          goalsHome: elem.goals.home,
+          goalsAway: elem.goals.away,
+          nameAway: elem.teams.away.name,
+          logoAway: elem.teams.away.logo
+        });
+      }
+    });
+    this.teamMatches = standings.slice(0, 10);
+}
+
+  /*getTeamMatches(idLeague: string, season: string, idTeam: string) {
     this.keyTeam = idLeague + '-' + idTeam;
 
     if(this.sessionStorageService.keyExists(this.keyTeam)) {
@@ -63,7 +99,7 @@ export class TeamMatchesComponent implements OnInit {
           this.sessionStorageService.saveStorageCountry(this.keyTeam, this.teamMatches);
       });
     }
-  }
+  }*/
 
   goBack(): void {
     this.location.back();

@@ -6,13 +6,13 @@ import { IFootball } from 'src/app/interfaces/football-updates-interface';
   templateUrl: './country-detail.component.html',
   styleUrls: ['./country-detail.component.scss']
 })
-export class CountryDetailComponent implements OnInit {
+export class CountryDetailComponent /*implements OnInit*/ {
   @Input() dataSource: IFootball[] = [];
   displayedColumns: string[] = ['rank', 'teamLogo' , 'name', 'gamesPlayed', 'wins', 'losses', 'draws', 'goalDifference', 'points'];
 
-  constructor( ) { }
+  //constructor( ) { }
 
-  ngOnInit(): void {
-  }
+  /*ngOnInit(): void {
+  }*/
 
 }

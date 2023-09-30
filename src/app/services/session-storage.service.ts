@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class SessionStorageService {
 
-  constructor() { }
+  //constructor() { }
 
   getStorageCountry(key: string) {
     return JSON.parse(sessionStorage.getItem(key)!);
@@ -23,19 +23,7 @@ export class SessionStorageService {
     sessionStorage.removeItem(key);
   }
 
-  /*getAll() {
-    var allItems = [];
-    for (let index = 0; index < sessionStorage.length; index++) {
-      var country;
-      var key = sessionStorage.key(index)!;
-      country = JSON.parse(sessionStorage.getItem(key)!);
-      allItems.push(country);
-    }
-    return allItems;
-  }*/
-
   keyExists(key:string): boolean {
     return sessionStorage.getItem(key) !== null;
   }
-
 }
