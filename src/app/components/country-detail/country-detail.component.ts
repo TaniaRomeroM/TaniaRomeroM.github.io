@@ -8,7 +8,7 @@ import { IFootball } from 'src/app/interfaces/football-updates-interface';
 })
 export class CountryDetailComponent implements OnInit {
   @Input() dataSource: IFootball[] = [];
-  displayedColumns: string[] = ['rank', 'teamLogo', 'name', 'gamesPlayed', 'wins', 'losses', 'draws', 'goalDifference', 'points'];
+  displayedColumns: string[] = ['rank', 'teamLogo' , 'name', 'gamesPlayed', 'wins', 'losses', 'draws', 'goalDifference', 'points'];
 
   constructor( ) { }
 
