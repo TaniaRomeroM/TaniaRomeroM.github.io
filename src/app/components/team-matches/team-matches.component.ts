@@ -35,7 +35,7 @@ export class TeamMatchesComponent implements OnInit {
     this.getTeamMatches(this.idLeague, this.season, this.idTeam);
   }
 
-  getTeamMatches(idLeague: string, season: string, idTeam: string) {
+  getTeamMatches(idLeague: string, season: string, idTeam: string): void {
     this.keyTeam = KEY_TEAMS_MATCHES + idLeague;
 
     // check if this.keyTeam is saved in session storage
@@ -59,7 +59,7 @@ export class TeamMatchesComponent implements OnInit {
     }
   }
 
-  checkTeam(data: any[], idTeam: string) {
+  checkTeam(data: any[], idTeam: string): void {
     let standings: any[] = [];
 
     data.forEach((elem: any) => {

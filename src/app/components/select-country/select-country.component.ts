@@ -37,19 +37,19 @@ export class SelectCountryComponent implements OnInit {
     }
   }
 
-  clearIdParam() {
+  clearIdParam(): void{
     this.router.navigate(
       ['.'],
       { relativeTo: this.activatedRoute, queryParams: {} }
     );
   }
 
-  getFootballCountryByIdLeague(league: string) {
+  getFootballCountryByIdLeague(league: string): void {
     this.idLeague = this.checkId(league);
     this.getFootballCountry(this.idLeague);
   }
 
-  getFootballCountry(idLeague: string) {
+  getFootballCountry(idLeague: string): void {
     this.idLeague = idLeague;
 
     // check if this.idLeague is saved in session storage
@@ -88,7 +88,7 @@ export class SelectCountryComponent implements OnInit {
     }
   }
 
-  checkId(league: string) {
+  checkId(league: string): string {
     let id: string = "";
 
     switch (league) {
