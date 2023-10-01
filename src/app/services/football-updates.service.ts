@@ -11,7 +11,7 @@ export class FootballUpdatesService {
 
   getFootballCountry(league: string, season: string): Observable<any> {
     let url: string = "https://v3.football.api-sports.io/standings?league=:league&season=:season";
-    let headers = new HttpHeaders();
+    let headers: HttpHeaders = new HttpHeaders();
 
     headers = headers.append("x-rapidapi-key", "5b90c16d764a13008b180becf77abd0b");
     headers = headers.append("x-rapidapi-host", "v3.football.api-sports.io");
@@ -28,7 +28,7 @@ export class FootballUpdatesService {
   getTeamsMatches(idLeague: string, season: string, from: string, to: string): Observable<any> {
     // makes only one call per league
     let url: string = "https://v3.football.api-sports.io/fixtures?league=:league&season=:season&from=:from&to=:to";
-    let headers = new HttpHeaders();
+    let headers: HttpHeaders = new HttpHeaders();
 
     headers = headers.append("x-rapidapi-key", "5b90c16d764a13008b180becf77abd0b");
     headers = headers.append("x-rapidapi-host", "v3.football.api-sports.io");

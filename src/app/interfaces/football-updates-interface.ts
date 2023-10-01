@@ -1,5 +1,6 @@
 export interface IFootball {
-  id: string;
+  idLeague: string;
+  idTeam: string;
   rank: string;
   name: string;
   teamLogo: string;

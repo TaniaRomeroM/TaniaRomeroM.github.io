@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ID_ENGLAND, ID_FRANCE, ID_GERMANY, ID_ITALY, ID_SPAIN } from 'src/app/constants/football-constants';
+import { IFootball } from 'src/app/interfaces/football-updates-interface';
 import { FootballUpdatesService } from 'src/app/services/football-updates.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 
@@ -10,10 +11,9 @@ import { SessionStorageService } from 'src/app/services/session-storage.service'
   styleUrls: ['./select-country.component.scss']
 })
 export class SelectCountryComponent implements OnInit {
-  idLeague = '';
-  countryStandings: any[] = [];
-  seasonD = new Date().getFullYear();
-  season = this.seasonD.toString();
+  idLeague: string = '';
+  countryStandings: IFootball[] = [];
+  season: string = new Date().getFullYear().toString();
   active: boolean = false;
 
   constructor(
@@ -58,7 +58,7 @@ export class SelectCountryComponent implements OnInit {
       this.active = true;
 
     } else {
-      let standings: any[] = [];
+      let standings: IFootball[] = [];
 
       // call to service
       this.footballUpdatesService.getFootballCountry(this.idLeague, this.season).subscribe(
@@ -75,7 +75,7 @@ export class SelectCountryComponent implements OnInit {
               wins: elem.all.win,
               draws: elem.all.draw,
               losses: elem.all.lose,
-              goalDifference: elem.all.goals.for - elem.all.goals.against,
+              goalDifference: (elem.all.goals.for - elem.all.goals.against).toString(),
               points: elem.points
             });
           });

@@ -11,10 +11,10 @@ import { KEY_TEAMS_MATCHES, START_SEASON_MONTHDAY } from 'src/app/constants/foot
   styleUrls: ['./team-matches.component.scss']
 })
 export class TeamMatchesComponent implements OnInit {
-  idTeam: any;
-  idLeague: any;
-  keyTeam: any;
-  season = new Date().getFullYear().toString();
+  idTeam: string = '';
+  idLeague: string = '';
+  keyTeam: string = '';
+  season: string = new Date().getFullYear().toString();
   teamMatches: IFootballGames[] = [];
   displayedColumns: string[] = ['logoHome', 'nameHome', 'goalsHome', 'split', 'goalsAway', 'nameAway', 'logoAway'];
 
@@ -40,29 +40,29 @@ export class TeamMatchesComponent implements OnInit {
 
     // check if this.keyTeam is saved in session storage
     if (this.sessionStorageService.keyExists(this.keyTeam)) {
-      let data = this.sessionStorageService.getStorageCountry(this.keyTeam);
+      let data: any[] = this.sessionStorageService.getStorageCountryGames(this.keyTeam);
       this.checkTeam(data, idTeam);
 
     } else {
       // get nedeed dates
-      let toDate = new Date().toISOString().split('T')[0];
-      let fromDate = new Date().getFullYear().toString().concat("-").concat(START_SEASON_MONTHDAY);
+      let toDate: string = new Date().toISOString().split('T')[0];
+      let fromDate: string = new Date().getFullYear().toString().concat("-").concat(START_SEASON_MONTHDAY);
 
       // call to service
       this.footballUpdatesService.getTeamsMatches(idLeague, season, fromDate, toDate).subscribe(
         data => {
           data = data.response;
           // in one key save all matches of a league to make only one call per league
-          this.sessionStorageService.saveStorageCountry(this.keyTeam, data);
+          this.sessionStorageService.saveStorageCountryGames(this.keyTeam, data);
           this.checkTeam(data, idTeam);
         });
     }
   }
 
   checkTeam(data: any[], idTeam: string): void {
-    let standings: any[] = [];
+    let standings: IFootballGames[] = [];
 
-    data.forEach((elem: any) => {
+    data.forEach((elem) => {
       // saves all matches of the selected team
       if (elem.teams.home.id == idTeam || elem.teams.away.id == idTeam) {
         standings.push({
