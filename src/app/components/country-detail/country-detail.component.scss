@@ -1,7 +1,17 @@
 table {
-  width: 65%;
+  width: 70%;
   margin: 0 auto;
-  margin-top: 3%;
+  margin-top: 2%;
+  margin-bottom: 10%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: beige;
+}
+
+th {
+  font-weight: bold;
+  color: black;
+  font-size: 15px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 img {
@@ -22,19 +32,19 @@ img {
 }
 
 .mat-column-games{
-  width: 17%;
+  width: 20%;
 }
 
 .mat-column-wins{
-  width: 10%;
+  width: 9%;
 }
 
 .mat-column-losses{
-  width: 10%;
+  width: 9%;
 }
 
 .mat-column-draws{
-  width: 10%;
+  width: 9%;
 }
 
 .mat-column-goal{

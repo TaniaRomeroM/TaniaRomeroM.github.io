@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IFootball } from 'src/app/interfaces/football-updates-interface';
 
 @Component({
@@ -6,13 +6,7 @@ import { IFootball } from 'src/app/interfaces/football-updates-interface';
   templateUrl: './country-detail.component.html',
   styleUrls: ['./country-detail.component.scss']
 })
-export class CountryDetailComponent /*implements OnInit*/ {
+export class CountryDetailComponent {
   @Input() dataSource: IFootball[] = [];
-  displayedColumns: string[] = ['rank', 'teamLogo' , 'name', 'gamesPlayed', 'wins', 'losses', 'draws', 'goalDifference', 'points'];
-
-  //constructor( ) { }
-
-  /*ngOnInit(): void {
-  }*/
-
+  displayedColumns: string[] = ['rank', 'teamLogo', 'name', 'gamesPlayed', 'wins', 'losses', 'draws', 'goalDifference', 'points'];
 }

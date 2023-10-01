@@ -4,8 +4,8 @@ import { SelectCountryComponent } from './components/select-country/select-count
 import { TeamMatchesComponent } from './components/team-matches/team-matches.component';
 
 const routes: Routes = [
-  {path:'', component: SelectCountryComponent},
-  {path:'team-matches', component: TeamMatchesComponent}
+  { path: '', component: SelectCountryComponent },
+  { path: 'team-matches', component: TeamMatchesComponent }
 ];
 
 @NgModule({

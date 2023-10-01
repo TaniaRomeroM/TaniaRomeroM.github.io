@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ID_ENGLAND, ID_FRANCE, ID_GERMANY, ID_ITALY, ID_SPAIN } from 'src/app/constants/football-constants';
 import { FootballUpdatesService } from 'src/app/services/football-updates.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
@@ -9,30 +10,57 @@ import { SessionStorageService } from 'src/app/services/session-storage.service'
   styleUrls: ['./select-country.component.scss']
 })
 export class SelectCountryComponent implements OnInit {
+  idLeague = '';
   countryStandings: any[] = [];
   seasonD = new Date().getFullYear();
   season = this.seasonD.toString();
-  idLeague = '';
   active: boolean = false;
 
   constructor(
     private footballUpdatesService: FootballUpdatesService,
-    private sessionStorageService: SessionStorageService
+    private sessionStorageService: SessionStorageService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
+    // collects the url parameters
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        this.idLeague = params['idLeague'];
+      });
+
+    // enter if coming from TeamMatches screen
+    if (this.isValid(this.idLeague)) {
+      this.clearIdParam();
+      this.getFootballCountry(this.idLeague);
+    }
   }
 
-  getFootballCountry(league: string) {
-    this.idLeague = this.checkId(league);
+  clearIdParam() {
+    this.router.navigate(
+      ['.'],
+      { relativeTo: this.activatedRoute, queryParams: {} }
+    );
+  }
 
-    if(this.sessionStorageService.keyExists(this.idLeague)) {
+  getFootballCountryByIdLeague(league: string) {
+    this.idLeague = this.checkId(league);
+    this.getFootballCountry(this.idLeague);
+  }
+
+  getFootballCountry(idLeague: string) {
+    this.idLeague = idLeague;
+
+    // check if this.idLeague is saved in session storage
+    if (this.sessionStorageService.keyExists(this.idLeague)) {
       this.countryStandings = this.sessionStorageService.getStorageCountry(this.idLeague);
       this.active = true;
 
     } else {
-      var standings: any[] = [];
+      let standings: any[] = [];
 
+      // call to service
       this.footballUpdatesService.getFootballCountry(this.idLeague, this.season).subscribe(
         data => {
           data = data.response[0].league.standings[0];
@@ -53,16 +81,17 @@ export class SelectCountryComponent implements OnInit {
           });
           this.countryStandings = standings;
 
+          // save to session storage
           this.sessionStorageService.saveStorageCountry(this.idLeague, this.countryStandings);
           this.active = true;
-      });
+        });
     }
   }
 
   checkId(league: string) {
     let id: string = "";
 
-    switch(league) {
+    switch (league) {
       case 'england': {
         id = ID_ENGLAND;
         break;
@@ -90,4 +119,10 @@ export class SelectCountryComponent implements OnInit {
     return id;
   }
 
+  isValid(idLeague: string): boolean {
+    if (idLeague !== "" && idLeague !== null && idLeague !== undefined) {
+      return true;
+    }
+    return false;
+  }
 }

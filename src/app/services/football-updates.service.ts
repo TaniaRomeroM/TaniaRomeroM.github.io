@@ -7,17 +7,16 @@ import { Observable } from 'rxjs';
 })
 export class FootballUpdatesService {
 
-
   constructor(private httpClient: HttpClient) { }
 
   getFootballCountry(league: string, season: string): Observable<any> {
-    var url: string = "https://v3.football.api-sports.io/standings?league=:league&season=:season";
-    var headers = new HttpHeaders();
+    let url: string = "https://v3.football.api-sports.io/standings?league=:league&season=:season";
+    let headers = new HttpHeaders();
 
     headers = headers.append("x-rapidapi-key", "5b90c16d764a13008b180becf77abd0b");
     headers = headers.append("x-rapidapi-host", "v3.football.api-sports.io");
 
-    var requestOptions = {
+    let requestOptions = {
       method: 'GET',
       headers: headers,
       redirect: 'follow'
@@ -26,39 +25,20 @@ export class FootballUpdatesService {
     return this.httpClient.get(url, requestOptions);
   }
 
-
-  getTeamsMatches(idLeague: string, season: string): Observable<any> {
-    var url: string = "https://v3.football.api-sports.io/fixtures?league=:league&season=:season";
-
-    var headers = new HttpHeaders();
+  getTeamsMatches(idLeague: string, season: string, from: string, to: string): Observable<any> {
+    // makes only one call per league
+    let url: string = "https://v3.football.api-sports.io/fixtures?league=:league&season=:season&from=:from&to=:to";
+    let headers = new HttpHeaders();
 
     headers = headers.append("x-rapidapi-key", "5b90c16d764a13008b180becf77abd0b");
     headers = headers.append("x-rapidapi-host", "v3.football.api-sports.io");
 
-    var requestOptions = {
+    let requestOptions = {
       method: 'GET',
       headers: headers,
       redirect: 'follow'
     };
-    url = url.replace(":league", idLeague).replace(":season", season);
+    url = url.replace(":league", idLeague).replace(":season", season).replace(":from", from).replace(":to", to);
     return this.httpClient.get(url, requestOptions);
   }
-
-  /*getTeamMatches(idLeague: string, season: string, idTeam: string): Observable<any> {
-    var url: string = "https://v3.football.api-sports.io/fixtures?league=:league&season=:season&team=:team";
-
-    var headers = new HttpHeaders();
-
-    headers = headers.append("x-rapidapi-key", "5b90c16d764a13008b180becf77abd0b");
-    headers = headers.append("x-rapidapi-host", "v3.football.api-sports.io");
-
-    var requestOptions = {
-      method: 'GET',
-      headers: headers,
-      redirect: 'follow'
-    };
-    url = url.replace(":league", idLeague).replace(":season", season).replace(":team", idTeam);
-    return this.httpClient.get(url, requestOptions);
-  }*/
-
 }

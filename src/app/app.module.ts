@@ -1,30 +1,31 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { SelectCountryComponent } from './components/select-country/select-country.component';
-import { CountryDetailComponent } from './components/country-detail/country-detail.component';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+
+import { AppComponent } from './app.component';
+import { CountryDetailComponent } from './components/country-detail/country-detail.component';
+import { SelectCountryComponent } from './components/select-country/select-country.component';
 import { TeamMatchesComponent } from './components/team-matches/team-matches.component';
-//import { TeamMatchesComponent } from './components/team-matches/team-matches.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SelectCountryComponent,
     CountryDetailComponent,
+    SelectCountryComponent,
     TeamMatchesComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    MatButtonToggleModule,
+    BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatButtonModule,
+    MatButtonToggleModule,
     MatTableModule
   ],
   providers: [],
