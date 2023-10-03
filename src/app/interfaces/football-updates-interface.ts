@@ -1,23 +1,13 @@
 export interface IFootball {
   idLeague: string;
   idTeam: string;
-  rank: string;
+  rank: number;
   name: string;
   teamLogo: string;
-  gamesPlayed: string;
-  wins: string;
-  losses: string;
-  draws: string;
-  goalDifference: string;
-  points: string;
-}
-
-export interface IFootballGames {
-  idLeague: string;
-  logoHome: string;
-  nameHome: string;
-  goalsHome: string;
-  goalsAway: string;
-  nameAway: string;
-  logoAway: string;
+  gamesPlayed: number;
+  wins: number;
+  losses: number;
+  draws: number;
+  goalDifference: number;
+  points: number;
 }

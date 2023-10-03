@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IFootballGames } from 'src/app/interfaces/football-updates-interface';
+import { IFootballGames } from 'src/app/interfaces/football-games-interface';
 import { FootballUpdatesService } from 'src/app/services/football-updates.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KEY_TEAMS_MATCHES, START_SEASON_MONTHDAY } from 'src/app/constants/football-constants';
+import { IDataTeamMatches } from 'src/app/interfaces/data-teams-matches-interface';
 
 @Component({
   selector: 'app-team-matches',
@@ -40,7 +41,7 @@ export class TeamMatchesComponent implements OnInit {
 
     // check if this.keyTeam is saved in session storage
     if (this.sessionStorageService.keyExists(this.keyTeam)) {
-      let data: any[] = this.sessionStorageService.getStorageCountryGames(this.keyTeam);
+      let data: IDataTeamMatches[] = this.sessionStorageService.getStorageCountryGames(this.keyTeam);
       this.checkTeam(data, idTeam);
 
     } else {
@@ -51,7 +52,6 @@ export class TeamMatchesComponent implements OnInit {
       // call to service
       this.footballUpdatesService.getTeamsMatches(idLeague, season, fromDate, toDate).subscribe(
         data => {
-          data = data.response;
           // in one key save all matches of a league to make only one call per league
           this.sessionStorageService.saveStorageCountryGames(this.keyTeam, data);
           this.checkTeam(data, idTeam);
@@ -59,12 +59,12 @@ export class TeamMatchesComponent implements OnInit {
     }
   }
 
-  checkTeam(data: any[], idTeam: string): void {
+  checkTeam(data: IDataTeamMatches[], idTeam: string): void {
     let standings: IFootballGames[] = [];
 
     data.forEach((elem) => {
       // saves all matches of the selected team
-      if (elem.teams.home.id == idTeam || elem.teams.away.id == idTeam) {
+      if (elem?.teams?.home?.id == idTeam || elem?.teams?.away?.id == idTeam) {
         standings.push({
           idLeague: this.idLeague,
           logoHome: elem.teams.home.logo,

@@ -37,7 +37,7 @@ export class SelectCountryComponent implements OnInit {
     }
   }
 
-  clearIdParam(): void{
+  clearIdParam(): void {
     this.router.navigate(
       ['.'],
       { relativeTo: this.activatedRoute, queryParams: {} }
@@ -63,8 +63,7 @@ export class SelectCountryComponent implements OnInit {
       // call to service
       this.footballUpdatesService.getFootballCountry(this.idLeague, this.season).subscribe(
         data => {
-          data = data.response[0].league.standings[0];
-          data.forEach((elem: any) => {
+          data[0].league.standings[0].forEach((elem) => {
             standings.push({
               idLeague: this.idLeague,
               idTeam: elem.team.id,
@@ -75,7 +74,7 @@ export class SelectCountryComponent implements OnInit {
               wins: elem.all.win,
               draws: elem.all.draw,
               losses: elem.all.lose,
-              goalDifference: (elem.all.goals.for - elem.all.goals.against).toString(),
+              goalDifference: elem.all.goals.for - elem.all.goals.against,
               points: elem.points
             });
           });

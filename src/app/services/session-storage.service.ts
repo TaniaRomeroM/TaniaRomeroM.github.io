@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IFootball, IFootballGames } from '../interfaces/football-updates-interface';
+import { IFootball } from '../interfaces/football-updates-interface';
+import { IFootballGames } from '../interfaces/football-games-interface';
+import { IDataTeamMatches } from '../interfaces/data-teams-matches-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +16,11 @@ export class SessionStorageService {
     sessionStorage.setItem(key, JSON.stringify(data));
   }
 
-  getStorageCountryGames(key: string): IFootballGames[] {
+  getStorageCountryGames(key: string): IDataTeamMatches[] {
     return JSON.parse(sessionStorage.getItem(key)!);
   }
 
-  saveStorageCountryGames(key: string, data: IFootballGames[]): void {
+  saveStorageCountryGames(key: string, data: IDataTeamMatches[]): void {
     sessionStorage.setItem(key, JSON.stringify(data));
   }
 
