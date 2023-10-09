@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { IFootball } from '../interfaces/football-updates-interface';
-import { IFootballGames } from '../interfaces/football-games-interface';
 import { IDataTeamMatches } from '../interfaces/data-teams-matches-interface';
 
 @Injectable({

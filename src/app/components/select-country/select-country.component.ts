@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, QueryList, Renderer2, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ID_ENGLAND, ID_FRANCE, ID_GERMANY, ID_ITALY, ID_SPAIN } from 'src/app/constants/football-constants';
+import { Observable, of } from 'rxjs';
+import { COUNTRY_SELECT, CountrySelect, ID_ENGLAND, ID_FRANCE, ID_GERMANY, ID_ITALY, ID_SPAIN } from 'src/app/constants/football-constants';
 import { IFootball } from 'src/app/interfaces/football-updates-interface';
 import { FootballUpdatesService } from 'src/app/services/football-updates.service';
 import { SessionStorageService } from 'src/app/services/session-storage.service';
@@ -11,16 +12,32 @@ import { SessionStorageService } from 'src/app/services/session-storage.service'
   styleUrls: ['./select-country.component.scss']
 })
 export class SelectCountryComponent implements OnInit {
+  @ViewChildren('asButton') button!: QueryList<ElementRef>;
   idLeague: string = '';
   countryStandings: IFootball[] = [];
+  listCountrySelect: Observable<Array<CountrySelect>> = of(COUNTRY_SELECT);
   season: string = new Date().getFullYear().toString();
   active: boolean = false;
+
+  @HostListener('click', ['$event.target'])
+  onFocus() {
+    let nameLeague: string = this.checkName(this.idLeague);
+
+    this.button.forEach((res: ElementRef) => {
+      if(res.nativeElement.id === nameLeague) {
+        this.renderer2.setStyle(res.nativeElement, "box-shadow", "0 0 0 2px gainsboro, 0 0 0 4px grey");
+      } else {
+        this.renderer2.setStyle(res.nativeElement, "box-shadow", "");
+      }
+    });
+  }
 
   constructor(
     private footballUpdatesService: FootballUpdatesService,
     private sessionStorageService: SessionStorageService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private renderer2: Renderer2
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +51,20 @@ export class SelectCountryComponent implements OnInit {
     if (this.isValid(this.idLeague)) {
       this.clearIdParam();
       this.getFootballCountry(this.idLeague);
+    } else {
+      this.idLeague = ID_ENGLAND;
+      this.getFootballCountry(this.idLeague);
     }
+  }
+
+  ngAfterViewInit() {
+    let nameLeague: string = this.checkName(this.idLeague);
+
+    this.button.forEach((res: ElementRef) => {
+      if(res.nativeElement.id === nameLeague) {
+        this.renderer2.setStyle(res.nativeElement, "box-shadow", "0 0 0 2px gainsboro, 0 0 0 4px grey");
+      }
+    });
   }
 
   clearIdParam(): void {
@@ -116,6 +146,37 @@ export class SelectCountryComponent implements OnInit {
       }
     }
     return id;
+  }
+
+  checkName(idLeague: string): string {
+    let name: string = "";
+
+    switch (idLeague) {
+      case ID_ENGLAND: {
+        name = 'englandSelect';
+        break;
+      }
+      case ID_SPAIN: {
+        name = 'spainSelect';
+        break;
+      }
+      case ID_GERMANY: {
+        name = 'germanySelect';
+        break;
+      }
+      case ID_FRANCE: {
+        name = 'franceSelect';
+        break;
+      }
+      case ID_ITALY: {
+        name = 'italySelect';
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    return name;
   }
 
   isValid(idLeague: string): boolean {

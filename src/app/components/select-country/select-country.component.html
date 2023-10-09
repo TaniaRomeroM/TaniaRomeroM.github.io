@@ -1,16 +1,7 @@
-<div class="buttonToggle">
-  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-    <mat-button-toggle id="englandSelect" value="england" #england
-      (click)="getFootballCountryByIdLeague(england.value)">England</mat-button-toggle>
-    <mat-button-toggle id="spainSelect" value="spain" #spain
-      (click)="getFootballCountryByIdLeague(spain.value)">Spain</mat-button-toggle>
-    <mat-button-toggle id="germanySelect" value="germany" #germany
-      (click)="getFootballCountryByIdLeague(germany.value)">Germany</mat-button-toggle>
-    <mat-button-toggle id="franceSelect" value="france" #france
-      (click)="getFootballCountryByIdLeague(france.value)">France</mat-button-toggle>
-    <mat-button-toggle id="italySelect" value="italy" #italy
-      (click)="getFootballCountryByIdLeague(italy.value)">Italy</mat-button-toggle>
-  </mat-button-toggle-group>
+<div class="col-xs-12">
+  <div class="btn-group center-block" *ngFor="let country of listCountrySelect | async">
+    <button type="button" #asButton id="{{country.id}}" name="{{country.name}}" class="btn mx-1" (click)="getFootballCountryByIdLeague(country.value)">{{ country.name }}</button>
+  </div>
 </div>
 
 <app-country-detail *ngIf="active" [dataSource]="countryStandings"></app-country-detail>

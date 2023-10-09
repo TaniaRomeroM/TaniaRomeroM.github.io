@@ -53,8 +53,8 @@ export class TeamMatchesComponent implements OnInit {
       this.footballUpdatesService.getTeamsMatches(idLeague, season, fromDate, toDate).subscribe(
         data => {
           // in one key save all matches of a league to make only one call per league
-          this.sessionStorageService.saveStorageCountryGames(this.keyTeam, data);
           this.checkTeam(data, idTeam);
+          this.sessionStorageService.saveStorageCountryGames(this.keyTeam, data);
         });
     }
   }
@@ -76,6 +76,10 @@ export class TeamMatchesComponent implements OnInit {
         });
       }
     });
+
+    if (standings.length === 0) {
+      this.router.navigate(['home']);
+    }
 
     // get only last 10 matches
     this.teamMatches = standings.reverse().slice(0, 10);

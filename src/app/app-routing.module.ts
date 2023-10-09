@@ -5,7 +5,8 @@ import { TeamMatchesComponent } from './components/team-matches/team-matches.com
 
 const routes: Routes = [
   { path: '', component: SelectCountryComponent },
-  { path: 'team-matches', component: TeamMatchesComponent }
+  { path: 'team-matches', component: TeamMatchesComponent },
+  { path: '**', redirectTo: ''}
 ];
 
 @NgModule({

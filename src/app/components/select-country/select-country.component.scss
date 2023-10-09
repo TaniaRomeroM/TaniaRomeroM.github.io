@@ -1,12 +1,9 @@
-.buttonToggle {
-  width: 50%;
-  margin: 0 auto;
+.center-block {
+  position: relative;
+  left: 40%;
 }
 
-.mat-button-toggle-group {
-  margin-left: 25%;
-}
-
-.mat-button-toggle {
-  background-color: beige;
+button {
+  background-color: gainsboro;
+  color: black;
 }
